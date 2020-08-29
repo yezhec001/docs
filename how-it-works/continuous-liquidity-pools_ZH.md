@@ -20,19 +20,19 @@
 | x | 输入货币数量 | X | 输入货币余额 |
 | y | 输出货币数量 | Y | 输出货币余额 |
 
-Start with the fixed-product formula:
+从固定的乘积开始:
 
 $$
 Eqn 1: X*Y = K
 $$
 
-Derive the raw "XYK" output:
+算出 `XYK`:
 
 $$
 Eqn 2: \frac{y}{Y} = \frac{x}{x+X} \rightarrow y= \frac{xY}{x+X}
 $$
 
-Establish the basis of Value \(the spot purchasing power of `x` in terms of `Y` \) and slip, the difference between the spot and the final realised `y`:
+算出价值基础 \( `x`相对`y` 的购买力 \) 和滚动差价（输出数量`y`和现货数量的差别）
 
 $$
 Eqn 3: Value_y = \frac{xY}{X}
@@ -42,25 +42,26 @@ $$
 Eqn 4: slip =\frac{Value_y - y}{Value_y} =\frac{( \frac{xY}{X})-y}{ \frac{xY}{X}} = \frac{x}{x+X}
 $$
 
-Derive the slip-based fee:
+计算基于滚动差价的系统收费:
 
 $$
 Eqn 5: fee = slip * output =  \frac{x}{x+X} * \frac{xY}{x+X} = \frac{x^2Y}{(x+X)^2}
 $$
 
-Deduct it from the output, to give the final CLP algorithm:
+将收费从输入数量扣除：
 
 $$
 Eqn 6: y = \frac{xY}{x+X} - \frac{x^2Y}{(x+X)^2} \rightarrow y= \frac{ xYX} {(x+X)^2 }
 $$
 
-Comparing the two equations \(Equation 2 & 6\), it can be seen that the Base XYK is simply being multiplied by the inverse of Slip \(ie, if slip is 1%, then the output is being multiplied by 99%\). 
+对比公式2和6我们可以发现, CLP公式算出的输入货币数量就是XYK公式乘以（1-slip)
 
 ## CLP模型的演变历史
 
 ### 叠盘模型
 
 这是最简单的模型，将两种资产一比一的进兑换。如果流动资金池采用这种模型可能会导致资不抵债，这种模型不能更改资产的价格也没有内置的收费功能。
+
 $$
 Eqn 8: y = x
 $$
@@ -68,6 +69,7 @@ $$
 ### 定价模型
 
 这种模型预先设置好资产的交换比例，但是资金池同样可能会资不抵债。
+
 $$
 Eqn 9: y = \frac{xY}{X}
 $$
@@ -75,6 +77,7 @@ $$
 ### 固定乘积模型
 
 固定乘积模型就是我们一开始使用的XYK公式。这种模型可以动态的改变资产价格同时防止资不抵债，但是没有内置的收费功能。
+
 $$
 Eqn 10: y= \frac{xY}{x+X}
 $$
@@ -96,26 +99,24 @@ Eqn 12: y= \frac{ xYX} {(x+X)^2 }
 $$
 
 {% hint style="warning" %}
-The slip-based fee model breaks path-independence and incentivises traders to break up their trade in small amounts.   
-For protocols that can't order trades \(such as anything built on Ethereum\), this causes issues because traders will compete with each other in Ethereum Block Space and pay fees to miners, instead of paying fees to the protocol.   
-It is possible to build primitive trade ordering in an Ethereum Smart Contract in order to counter this and make traders compete with each other on trade size again.   
-THORChain is able to order trades based on fee & slip size, known as the Swap Queue. This ensures fees collected are maximal and prevents low-value trades. 
+滚动收费模型鼓励交易者分批次交易来减少费用。如果一个协议不能为进入的交易排序，比如ETH，交易者们就会通过使用更多的gas来加速他们交易通过的时间，但是这样是付费给挖矿者而不是协议本身。
+闪链根据交易者付出的费用来排列交易顺序（交换队列），保证系统获取最大盈利。
 {% endhint %}
 
-## Benefits of the CLP Model
+## CLP收费模型的优势
 
-Assuming a working Swap Queue, the CLP Model has the following benefits:
+CLP配合一个有效的交换队列有以下优势：
 
-* The fee paid asymptotes to zero as demand subsides, so price delta between the pool price and reference market price can also go to zero. 
-* Traders will compete for trade opportunities and pay maximally to liquidity providers.
-* The fee paid for any trade is responsive to the demand for liquidity by market-takers.
-* Prices inherit an "inertia" since large fast changes cause high fee revenue
-* Arbitrage opportunities are democratised as there is a diminishing return to arbitrage as the price approaches parity with reference
-* Traders are forced to consider the "time domain" \(how impatient they want to be\) for each trade. 
+* 当对流动性需求慢慢变少时，手续费会趋向于零，所以资金池的币价可以趋向与真正的市场价
+* 交易者需要付出更多费用来保证他们的交易首先通过，为系统和资金提供者带来最大收益
+* 手续费与资金流动性需求挂钩
+* 因为快速和大量的交易会导致更多的费用，所以资金池币价也拥有了惯性
+* 让更多人能参与套利交易，因为一个人不能一次性完成套利交易（想要一次完成需要付出巨大费用，得不偿失）
+* 交易者需要考虑时间因素，越没有耐心，手续费越高
 
-The salient point is the last one - that a liquidity-sensitive fee penalises traders for being impatient. This is an important quality in markets, since it allows time for market-changing information to be propagated to all market participants, rather than a narrow few having an edge. 
+最后一点是最重要的，一个和流动性需求挂钩的收费系统保证了市场变化信息可以传递给每一个在市场交易的人，而不是几个有内部消息的人。
 
-## Virtual Depths
+## 虚拟资金深度
 
 Balances of the pool \(X and Y\), are used as inputs for the CLP model. An amplification factor can be applied \(to both, or either\) in order to change the "weights" of the balances:
 
