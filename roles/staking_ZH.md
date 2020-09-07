@@ -79,33 +79,33 @@ $$
 
 ### **质押资产**
 
-Depositing assets on THORChain is permissionless and non-custodial.
+闪链上质押资产无需经过第三方监管或者允许。
 
-Stakers can propose new asset pools or add liquidity to existing pools. Anybody can propose a new asset by depositing it. See [asset listing/delisting](https://) for details. Once a new asset pool is listed, anybody can add liquidity to it. In this sense, THORChain is permissionless.
+质押者可以提议新的资金池或者给现有资金池增加流动性。任何人只要质押新货币就能提议该新货币的资金池，详情 [asset listing/delisting](https://)。当新资金池被创建时，所有人都可以为其增加流动性。
 
-The ability to use and withdraw assets is completely non-custodial. Only the original depositor has the ability to withdraw them. Nodes are bound by rules of the network and cannot take control of user-deposited assets.
+质押和取出资产完全没有第三方监管。只有质押者本人可以取出被质押的资产，节点收到网络协议控制所以无法动用质押资产。
 
 #### 流程
 
-Liquidity can be added to existing pools to increase depth and attract swappers. The deeper the liquidity, the lower the fee. However, deep pools generally have higher swap volume which generates more fee revenue.
+流动性可以添加到现有的资金池来增加资金深度和吸引交换者。资金池越深，费用越小；费用越小，交易量一般会更大，给资金池带来更多收益。
 
-Stakers are incentivised to stake symmetrically but should stake asymmetrically if the pool is already imbalanced.‌
+一般来说，质押者应该对称质押，但是在资金池已经不平衡的情况下，不对称质押更加有利。
 
 {% hint style="info" %}
 **对称和不对称质押**
 
-**Symmetrical staking** is where users deposit an _equal_ value of 2 assets to a pool. For example, a user deposits $1000 of BTC and $1000 of RUNE to the BTC/RUNE pool.
+**对称质押** 用户质押同等价值的两种资产，比如说1000美金的BTC和1000美金的RUNE。
 
-**Asymmetrical staking** is where users deposit _unequal_ values of 2 assets to a pool. For example, a user deposits $2000 of BTC and $0 of RUNE to the BTC/RUNE pool.Under the hood, this causes an arbitrage agent to swap $1000 of their BTC into RUNE, so the liquidity provider will end up with &lt;$1000 in BTC and &lt;$1000 in RUNE.   
+**不对称质押** 用户质押不同价值的两种资产，比如说2000美金的BTC和0美金的RUNE。在这种情况下，套利者就会将他的1000美金BTC换成RUNE，所以质押者最后的两种资产都会小于1000美金。  
   
-_Note: there is no difference between swapping into symmetrical shares, then staking that, or staking asymmetrically and being arb'd to be symmetrical. You will still experience the same net slip._ 
+_Note: 自己先使用资金池交换资金达成对称然后质押和直接不对称质押让套利者来对称你的资金效果是一样的。_ 
 {% endhint %}
 
 ### 取出资产
 
-Stakers can withdraw their assets at any time. To do so, they send in another special transaction. The network processes their request and the staker receives their ownership % of the pool along with the assets they've earned. A network fee is taken whenever assets are taken out of the network. These are placed into [the network reserve](../how-it-works/emission-schedule.md).
+质押者可以随时取出他们的资产。用户发起取款请求然后获取他们资金池所有权的百分比，网络费用会自动扣除，并添加到网络费用储备 [the network reserve](../how-it-works/emission-schedule.md).
 
-### **Yield Comes from Fees & Rewards**
+### **交易费和区块奖励带来的利息**
 
 Stakers earn a yield on the assets they deposit. This yield is made up of fees and rewards.
 
@@ -127,13 +127,13 @@ Learn about how [factors affecting yield and how yield is calculated](staking.md
 See here for an [interactive example](https://rebase.foundation/network/thorchain/system-component/providing-liquidity) of the staking process.
 {% endhint %}
 
-### Strategies
+### 策略
 
-**Passive** stakers should seek out pools with deep liquidity to minimise risk and maximise returns.
+**保守** 质押者选择流动性已经很高的资金池来最小化风险和最大化收益。
 
-**Active** stakers can maximise returns by seeking out pools with shallow liquidity but high demand. This demand will cause greater slips and higher fees for stakers.
+**激进** 质押者选择流动性低，但是需求高的资金池（更多手续费）来最大化收益。
 
-## Requirements, Costs
+## 要求和费用
 
 Stakers must have assets to deposit and their assets must be native to a supported chain. There is no minimum amount to stake in existing pools. However new assets must win a competition to be listed – larger value deposits will be listed over smaller value deposits.
 
