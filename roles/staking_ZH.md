@@ -107,24 +107,22 @@ _Note: 自己先使用资金池交换资金达成对称然后质押和直接不�
 
 ### **交易费和区块奖励带来的利息**
 
-Stakers earn a yield on the assets they deposit. This yield is made up of fees and rewards.
+质押的资产会通过交易费和区块奖励产生利息。
 
-**Fees** are paid by swappers and traders. Most swaps cause the ratio of assets in the liquidity pool to diverge from the market rate.
+**交易费** 由使用资金池的交易者支付。交易会导致资金池内资产比例失调，偏离真实市场价格。
 
 {% hint style="info" %}
-The ratio of assets in a liquidity pool is comparable to an exchange rate.
+资金池内资产比例和传统交易所的币价是一个概念。
 {% endhint %}
 
-This change to the ratio of assets is called a 'slip'. A proportion of each slip is kept in the pool. This is allocated to stakers and forms part of their staking yield. Learn more about [swapping](swapping.md).
+这种失调被称作为滑点，滑点造成的差价一部分会保留在资金池内，为质押者带来利润。 [swapping](swapping.md).
 
-**Rewards** come from THORChain's own [reward emissions](../how-it-works/emission-schedule.md). Reward emissions follow a predetermined schedule of release.
+**区块奖励** 通过闪链设定好的发放曲线分发 [reward emissions](../how-it-works/emission-schedule.md).
 
-Rewards also come from a large token reserve. This token reserve is continuously filled up from[ network fees](../how-it-works/fees.md#network-fee). Part of the token reserve is paid out to stakers over the long-term. This provides continuous income even during times of low exchange volume.
-
-Learn about how [factors affecting yield and how yield is calculated](staking.md#compensation).
+还有一种奖励从网络储备的资金中分发，主要由网络费用组成[ network fees](../how-it-works/fees.md#network-fee).储备资金的部分会分发给质押者，特别是在资金池交易量偏少的情况下。
 
 {% hint style="info" %}
-See here for an [interactive example](https://rebase.foundation/network/thorchain/system-component/providing-liquidity) of the staking process.
+如何质押？ [interactive example](https://rebase.foundation/network/thorchain/system-component/providing-liquidity) 
 {% endhint %}
 
 ### 策略
@@ -135,8 +133,9 @@ See here for an [interactive example](https://rebase.foundation/network/thorchai
 
 ## 要求和费用
 
-Stakers must have assets to deposit and their assets must be native to a supported chain. There is no minimum amount to stake in existing pools. However new assets must win a competition to be listed – larger value deposits will be listed over smaller value deposits.
+质押者必须质押区块链的原生资产，比如说BTC和ETH。在创建新的资金池时，资金数量越大上币越优先。
 
-The only direct cost to stakers is the [network fee](../how-it-works/fees.md#network-fee), charged for depositing and withdrawing assets. An indirect cost to stakers comes in the form of impermanent loss. Impermanent loss is common to Constant Function Market Makers like THORChain. It leads to potential loss of staker purchasing power as a result of price slippage in pools. However, this is minimised by THORChain's  [slip-based fee](../how-it-works/fees.md#slip-based-fee).
+质押者直接缴纳的费用是质押和取出资产时的网络费用。 [network fee](../how-it-works/fees.md#network-fee)
+质押者的资金会间接的收到无偿损失（impermanent loss）的影响，这在任何类似闪链的产品上很常见。闪链通过一个特别的机制来最小化无偿损失：  [slip-based fee](../how-it-works/fees.md#slip-based-fee).
 
-Stakers are not subject to any direct penalties for misconduct.
+质押者不会因为不良表现收到惩罚。
