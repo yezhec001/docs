@@ -13,7 +13,6 @@ description: Setting up a Kubernetes Cluster with AWS
 3. AWS IAM Authenticator
 4. `kubectl`
 5. `wget` \(required for EKS module\)
-6. Kubernetes Terraform provider
 
 {% hint style="warning" %}
 **LINUX/MAC is the preferred method of setup.**
@@ -110,24 +109,6 @@ _Note: You most likely have these installed already._
 ```text
 brew install wget 
 brew install jq
-```
-{% endtab %}
-{% endtabs %}
-
-####  **Kubernetes Terraform provider**
-
-Use the command below to install Kubernetes Terraform provider, if the command is outdated or failing, please refer to the [documentation here](https://gavinbunney.github.io/terraform-provider-kubectl/docs/provider.html).
-
-{% tabs %}
-{% tab title="LINUX/MAC" %}
-Run the following:
-
-```text
-mkdir -p ~/.terraform.d/plugins && \
-    curl -Ls https://api.github.com/repos/gavinbunney/terraform-provider-kubectl/releases/latest \
-    | jq -r ".assets[] | select(.browser_download_url | contains(\"$(uname -s | tr A-Z a-z)\")) | select(.browser_download_url | contains(\"amd64\")) | .browser_download_url" \
-    | xargs -n 1 curl -Lo ~/.terraform.d/plugins/terraform-provider-kubectl && \
-    chmod +x ~/.terraform.d/plugins/terraform-provider-kubectl
 ```
 {% endtab %}
 {% endtabs %}

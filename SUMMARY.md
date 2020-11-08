@@ -7,7 +7,7 @@
 
 ## Roles
 
-* [Stakers](roles/staking.md)
+* [Liquidity Providers](roles/liquidity-providers.md)
 * [Swappers](roles/swapping.md)
 * [Traders](roles/trading.md)
 * [Node Operators](roles/node-operators.md)
@@ -15,18 +15,22 @@
 ## THORNodes
 
 * [THORNode Overview](thornodes/overview.md)
+* [🛑 Emergency Procedures](thornodes/emergency-procedures.md)
 * [Deploy - Manual](thornodes/manual.md)
 * [Deploy - K8 Cluster](thornodes/kubernetes/README.md)
   * [Setup - AWS](thornodes/kubernetes/setup.md)
   * [Setup - Digital Ocean](thornodes/kubernetes/setup-digital-ocean.md)
-  * [Deploying](thornodes/kubernetes/deploying.md)
+  * [Setup - Hetzner Bare Metal](thornodes/kubernetes/setup-hetzner-bare-metal.md)
+* [Deploying](thornodes/deploying.md)
 * [Joining](thornodes/joining.md)
 * [Managing](thornodes/managing.md)
 * [Alerting](thornodes/alerting.md)
 * [Leaving](thornodes/leaving.md)
+* [✔️ CHECKLIST](thornodes/checklist.md)
 
 ## Developers
 
+* [THORCLI](developers/thorcli.md)
 * [Connecting to THORChain](developers/connecting-to-thorchain.md)
 * [Transaction Memos](developers/transaction-memos.md)
 * [ASGARDEX Modules](developers/asgardex-modules.md)
