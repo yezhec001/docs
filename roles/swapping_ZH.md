@@ -25,31 +25,30 @@
 
 ### 去中心化结构
 
+闪链根据状态机器的规则来管理用户的货币交易，完全自主的不需要第三方介入的一个流程。
+每一个用户的货币交易请求都会被机器观察到，不符合规定的交易请求会自动退款。交易通过的顺序是根据产生的手续费来排序的，这样的目的是为了防止
+恶性竞争。节点不能影响交易通过的顺序，并且会为没有观察到的交易请求受罚。
+每一个货币交易在BNB池中在5-10秒内就能完成。
 
+### 喷泉式资金池
 
-THORChain manages the swaps in accordance with the rules of the state machine - which is completely autonomous. Every swap that it observes is finalised, ordered and processed. Invalid swaps are refunded, valid swaps ordered in a transparent way that is resistant to front-running. Validators can not influence the order of trades, and are punished if they fail to observe a valid swap. 
+闪链上的货币交易都是通过资金池达成的。资金池由质押者们注入资金，每个资金池包含了等价的RUNE和外来货币，比如说BTC和RUNE。
+资金池被成为喷泉式是因为所有的资金池都通过RUNE被连接在一起，成为了一个大型的资金池。
 
-Swaps are completed as fast as they can be confirmed, which is around 5-10 seconds. 
+当用户交换两种外来货币时，他们实际上在和两个不同的资金池同时进行交易，闪链作出以下行为：
 
-### Continuous Liquidity Pools
+1. 在第一个资金池中将外来货币转换成RUNE
+2. 将转换后的RUNE移动到第二个资金池
+3. 将\(2\)产生的RUNE换成另一种外来货币
 
-Swaps on THORChain are made possible by liquidity pools. These are pools of assets deposited by Stakers, where each pool consists of 1 connected asset, for example Bitcoin, and THORChain's own asset, RUNE. They're called Continuous Liquidity Pools because RUNE, being in each pool, links all pools together in a single, continuous liquidity network.
-
-When a user swaps 2 connected assets on THORChain, they swap between two pools:
-
-1. Swap to RUNE in the first pool,
-2. Move that RUNE into the second pool,
-3. Swap to the desired asset in the second pool with the RUNE from \(2\)
-
-The THORChain state machine handles this swap in one go, so the user is never handles RUNE. 
-
-See [this example](swapping.md#example-connected-asset-binance-coin-to-connected-asset-bitcoin) for further detail and the page below for broader detail on Continuous Liquidity Pools.
+闪链的状态机器将这些步骤整合，所以用户永远不需要进行超过一次的操作。
+接下来我们提供详细的交换流程和例子：
 
 {% page-ref page="../how-it-works/continuous-liquidity-pools.md" %}
 
-### Calculating Swap Output
+### 计算交易后的货币量
 
-The output of a swap can be worked out using the formula
+转换后的货币量通过以下公式计算：
 
 $$
 y = \frac{ xYX} {(x+X)^2 }
@@ -57,32 +56,26 @@ $$
 
 where
 
-* x is input asset amount
-* X is input asset balance
-* y is output asset amount
-* Y is output asset balance
+* x 是用户提供的货币数量
+* X 是用户提供的货币在资金池内的数量
+* y 是产出的货币数量
+* Y 是产出的货币在资金池内的数量
 
-#### Example
+#### 例子
 
-The BTC.RUNE pool has 100 BTC and 2.5 million RUNE. A user swaps 1 BTC into the pool. Calculate how much RUNE is output:
+BTC.RUNE资金池内有100BTC和250万RUNE。用户交易1BTC：
 
 $$
 \frac {1 * 2500000 * 100 } {(1 + 100)^2} = 24,507.40
 $$
 
-This user swaps 1 BTC for 24,507.40 RUNE.
+用户将得到24,507.40 RUNE
 
-{% hint style="info" %}
-Run through an [interactive tutorial of an asset swap](https://app.bepswap.com/swap).
-{% endhint %}
+### 费用
 
-### Costs
+交易费用由以下组成：
+1. 网络费用
+2. 价格滑点
 
-The cost of a swap is made up of two parts:
-
-1. Network Fee
-2. Price Slippage
-
-All swaps are charged a network fee. The network fee is dynamic – it's calculated by averaging a set of recent gas prices. Learn more about [Network Fees](../how-it-works/fees.md#network-fee).
-
-Note that users who force their swaps through quickly cause large slips and pay larger fees to stakers.
+所有的交易都需要付网络费用，网络费用是动态的（最近GAS的均价）。 详情：[网络费用](../how-it-works/fees_ZH.md#network-fee).
+想更快完成交易的用户会承受更多的价格滑点，这部分费用会进入资金池和节点。
